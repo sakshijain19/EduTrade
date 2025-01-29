@@ -1,0 +1,421 @@
+// /* eslint-disable no-unused-vars */
+// import React, { useState } from 'react';
+// import { ArrowUpTrayIcon, MagnifyingGlassIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
+
+// export default function Notes() {
+//   const [activeTab, setActiveTab] = useState('search');
+//   const [searchTerm, setSearchTerm] = useState('');
+//   const [subject, setSubject] = useState('All Subjects');
+//   const [noteTitle, setNoteTitle] = useState('');
+//   const [noteFile, setNoteFile] = useState(null);
+
+//   const handleFileChange = (e) => {
+//     setNoteFile(e.target.files[0]);
+//   };
+
+//   const handleUpload = (e) => {
+//     e.preventDefault();
+//     // Handle file upload logic here
+//     console.log('Uploading:', { noteTitle, subject, noteFile });
+//   };
+
+//   const sampleNotes = [
+//     { title: 'Introduction to React', subject: 'Web Development', author: 'Dr. Smith', type: 'PDF' },
+//     { title: 'Data Structures Basics', subject: 'Computer Science', author: 'Prof. Johnson', type: 'DOC' },
+//     { title: 'Machine Learning Fundamentals', subject: 'Artificial Intelligence', author: 'Dr. Lee', type: 'PDF' },
+//   ];
+
+//   return (
+//     <div className="mt-50 mb-60 p-6 w-full max-w-3xl mx-auto">
+//       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+//         <div className="px-4 py-5 sm:p-6">
+//           <h2 className="text-2xl font-bold text-gray-900 mb-4">Notes </h2>
+//           <div className="border-b border-gray-200">
+//             <nav className="-mb-px flex" aria-label="Tabs">
+//               <button
+//                 onClick={() => setActiveTab('search')}
+//                 className={`${
+//                   activeTab === 'search'
+//                     ? 'border-primary-500 text-primary-600'
+//                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+//                 } w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm`}
+//               >
+//                 Search Notes
+//               </button>
+//               <button
+//                 onClick={() => setActiveTab('upload')}
+//                 className={`${
+//                   activeTab === 'upload'
+//                     ? 'border-primary-500 text-primary-600'
+//                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+//                 } w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm`}
+//               >
+//                 Upload Notes
+//               </button>
+//             </nav>
+//           </div>
+
+//           {activeTab === 'search' ? (
+//             <div className="mt-6">
+//               <p className="text-sm text-gray-500 mb-4">Find study materials uploaded Students.</p>
+//               <div className="flex gap-4 mb-6">
+//                 <div className="flex-grow">
+//                   <label htmlFor="search" className="sr-only">
+//                     Search notes
+//                   </label>
+//                   <div className="relative">
+//                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+//                       <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+//                     </div>
+//                     <input
+//                       type="search"
+//                       name="search"
+//                       id="search"
+//                       className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+//                       placeholder="Search notes..."
+//                       value={searchTerm}
+//                       onChange={(e) => setSearchTerm(e.target.value)}
+//                     />
+//                   </div>
+//                 </div>
+//                 <select
+//                   id="subject"
+//                   name="subject"
+//                   className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
+//                   value={subject}
+//                   onChange={(e) => setSubject(e.target.value)}
+//                 >
+//                   <option>All Subjects</option>
+//                   <option>Web Development</option>
+//                   <option>Computer Science</option>
+//                   <option>Artificial Intelligence</option>
+//                 </select>
+//               </div>
+//               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+//                 {sampleNotes.map((note, index) => (
+//                   <div key={index} className="bg-white overflow-hidden shadow rounded-lg">
+//                     <div className="px-4 py-5 sm:p-6">
+//                       <h3 className="text-lg font-medium text-gray-900">{note.title}</h3>
+//                       <p className="mt-1 text-sm text-gray-500">{note.subject} - {note.author}</p>
+//                       <div className="mt-4 flex space-x-2">
+//                         <button
+//                           type="button"
+//                           className="mt-4 inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+//                         >
+//                           <ArrowDownTrayIcon className="mr-2 -ml-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+//                           Download {note.type}
+//                         </button>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           ) : (
+//             <div className="mt-6">
+//               <p className="text-sm text-gray-500 mb-4">Share your study materials with students.</p>
+//               <form onSubmit={handleUpload}>
+//                 <div className="space-y-4">
+//                   <div>
+//                     <label htmlFor="note-file" className="block text-sm font-medium text-gray-700">
+//                       Note File
+//                     </label>
+//                     <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+//                       <div className="space-y-1 text-center">
+//                         <ArrowUpTrayIcon className="mx-auto h-12 w-12 text-gray-400" />
+//                         <div className="flex text-sm text-gray-600">
+//                           <label
+//                             htmlFor="note-file"
+//                             className="relative cursor-pointer bg-white rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500"
+//                           >
+//                             <span>Upload a file</span>
+//                             <input id="note-file" name="note-file" type="file" className="sr-only" onChange={handleFileChange} />
+//                           </label>
+//                           <p className="pl-1">or drag and drop</p>
+//                         </div>
+//                         <p className="text-xs text-gray-500">PDF, DOC, DOCX up to 10MB</p>
+//                       </div>
+//                     </div>
+//                   </div>
+//                   <div>
+//                     <label htmlFor="note-title" className="block text-sm font-medium text-gray-700">
+//                       Note Title
+//                     </label>
+//                     <input
+//                       type="text"
+//                       name="note-title"
+//                       id="note-title"
+//                       className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+//                       placeholder="Enter note title"
+//                       value={noteTitle}
+//                       onChange={(e) => setNoteTitle(e.target.value)}
+//                     />
+//                   </div>
+//                   <div>
+//                     <label htmlFor="upload-subject" className="block text-sm font-medium text-gray-700">
+//                       Subject
+//                     </label>
+//                     <select
+//                       id="upload-subject"
+//                       name="upload-subject"
+//                       className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm rounded-md"
+//                       value={subject}
+//                       onChange={(e) => setSubject(e.target.value)}
+//                     >
+//                       <option value="">Select subject</option>
+//                       <option>Web Development</option>
+//                       <option>Computer Science</option>
+//                       <option>Artificial Intelligence</option>
+//                     </select>
+//                   </div>
+//                   <div>
+//                     <button
+//                       type="submit"
+//                       className="w-full flex justify-center py-2 px-4 border border-0.5px rounded-md shadow-sm text-sm font-medium text-black bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+//                     >
+//                       Upload Notes
+//                     </button>
+//                   </div>
+//                 </div>
+//               </form>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
+import {
+  ArrowUpTrayIcon,
+  MagnifyingGlassIcon,
+  ArrowDownTrayIcon,
+} from '@heroicons/react/24/outline';
+
+export default function Notes() {
+  const [activeTab, setActiveTab] = useState('search');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [subject, setSubject] = useState('All Subjects');
+  const [noteTitle, setNoteTitle] = useState('');
+  const [noteFile, setNoteFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setNoteFile(e.target.files[0]);
+  };
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+    console.log('Uploading:', { noteTitle, subject, noteFile });
+    alert('Note uploaded successfully!');
+  };
+
+  const handleDownload = (note) => {
+    const fileName = `${note.title}.${note.type.toLowerCase()}`;
+    const blob = new Blob(['Sample file content'], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const sampleNotes = [
+    { title: 'Introduction to React', subject: 'Web Development', author: 'Dr. Smith', type: 'PDF' },
+    { title: 'Data Structures Basics', subject: 'Computer Science', author: 'Prof. Johnson', type: 'DOC' },
+    { title: 'Machine Learning Fundamentals', subject: 'Artificial Intelligence', author: 'Dr. Lee', type: 'PDF' },
+    { title: 'CSS Basics', subject: 'Web Development', author: 'Prof. Miller', type: 'DOCX' },
+    { title: 'Python for Beginners', subject: 'Programming', author: 'Dr. Brown', type: 'PDF' },
+  ];
+
+  const filteredNotes = sampleNotes.filter((note) => {
+    const matchesSearch = note.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSubject = subject === 'All Subjects' || note.subject === subject;
+    return matchesSearch && matchesSubject;
+  });
+
+  return (
+    <div className="mt-12 mb-12 p-6 w-full max-w-4xl mx-auto">
+      <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="px-4 py-5 sm:p-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Notes</h2>
+          <div className="border-b border-gray-200">
+            <nav className="-mb-px flex" aria-label="Tabs">
+              <button
+                onClick={() => setActiveTab('search')}
+                className={`${
+                  activeTab === 'search'
+                    ? 'border-gray-500 text-gray-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                } w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm`}
+              >
+                Search Notes
+              </button>
+              <button
+                onClick={() => setActiveTab('upload')}
+                className={`${
+                  activeTab === 'upload'
+                    ? 'border-gray-500 text-gray-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                } w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm`}
+              >
+                Upload Notes
+              </button>
+            </nav>
+          </div>
+
+          {activeTab === 'search' ? (
+            <div className="mt-6">
+              <p className="text-sm text-gray-500 mb-4">Find study materials uploaded by students.</p>
+              <div className="flex gap-4 mb-6">
+                <div className="flex-grow">
+                  <label htmlFor="search" className="sr-only">
+                    Search notes
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                    </div>
+                    <input
+                      type="search"
+                      name="search"
+                      id="search"
+                      className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      placeholder="Search notes..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <select
+                  id="subject"
+                  name="subject"
+                  className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                >
+                  <option>All Subjects</option>
+                  <option>Web Development</option>
+                  <option>Computer Science</option>
+                  <option>Artificial Intelligence</option>
+                  <option>Programming</option>
+                </select>
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {filteredNotes.map((note, index) => (
+                  <div key={index} className="bg-white overflow-hidden shadow rounded-lg">
+                    <div className="px-4 py-5 sm:p-6">
+                      <h3 className="text-lg font-medium text-gray-900">{note.title}</h3>
+                      <p className="mt-1 text-sm text-gray-500">
+                        {note.subject} - {note.author}
+                      </p>
+                      <div className="mt-4 flex space-x-2">
+                        <button
+                          onClick={() => handleDownload(note)}
+                          className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        >
+                          <ArrowDownTrayIcon className="mr-2 -ml-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+                          Download {note.type}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="mt-6">
+              <p className="text-sm text-gray-500 mb-4">Share your study materials with students.</p>
+              <form onSubmit={handleUpload}>
+                <div className="space-y-4">
+                  <div>
+                    <label htmlFor="note-file" className="block text-sm font-medium text-gray-700">
+                      Note File
+                    </label>
+                    <input
+                      id="note-file"
+                      name="note-file"
+                      type="file"
+                      className="mt-1 block w-full text-sm border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                      onChange={handleFileChange}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="note-title" className="block text-sm font-medium text-gray-700">
+                      Note Title
+                    </label>
+                    <input
+                      type="text"
+                      name="note-title"
+                      id="note-title"
+                      className="mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      placeholder="Enter note title"
+                      value={noteTitle}
+                      onChange={(e) => setNoteTitle(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="upload-subject" className="block text-sm font-medium text-gray-700">
+                      Subject
+                    </label>
+                    <select
+                      id="upload-subject"
+                      name="upload-subject"
+                      className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                      value={subject}
+                      onChange={(e) => setSubject(e.target.value)}
+                    >
+                      <option value="">Select subject</option>
+                      <option>Web Development</option>
+                      <option>Computer Science</option>
+                      <option>Artificial Intelligence</option>
+                      <option>Programming</option>
+                    </select>
+                  </div>
+                  <div>
+                    <button
+                      type="submit"
+                      className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                    >
+                      Upload Notes
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
