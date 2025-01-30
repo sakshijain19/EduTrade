@@ -82,7 +82,7 @@ export default function Header() {
             id="mobile-menu-2"
           >
             <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-              {["Home", "Book","Notes","Chatbot","Question Papers", "About", "Feedback"].map((item) => (
+              {["Home", "Books","Notes","Chatbot","Question Papers", "About", "Feedback"].map((item) => (
                 <li key={item}>
                   <NavLink
                     to={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "-")}`}
