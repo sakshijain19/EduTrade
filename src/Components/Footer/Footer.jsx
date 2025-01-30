@@ -11,7 +11,7 @@ export default function Footer() {
                         <Link to="/" className="flex items-center">
                             <img
               src="src\Components\Images\pixelcut-exyuiport.png"
-              className="mr-3 h-16"
+              className="mr-3 h-20"
                                 alt="Logo"
                             />
                         </Link>

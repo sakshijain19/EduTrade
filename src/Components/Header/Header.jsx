@@ -19,8 +19,8 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img
-              src="https://i.ibb.co/Hxj7tJz/pixelcut-exyuiport.png"
-              className="mr-3 h-12"
+              src="https://i.ibb.co/G3HtKFc9/pixelcut-exyuiport.png"
+              className="mr-5 h-12"
               alt="Logo"
             />
           </Link>
