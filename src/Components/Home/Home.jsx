@@ -16,15 +16,15 @@ const Header = () => {
   return (
     <main className="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
       {/* Logo and tagline */}
-      <div className="text-center mb-12 mt-14">
+      <div className="text-center mb-12 mt-15">
         <div className="grid place-items-center sm:mt-1">
           <img
             className="sm:w-96 w-48"
-            src="https://i.ibb.co/GpWjXMc/Edu-Trade-Educational-web-Application-logo-text.png"
+            src="https://i.ibb.co/xSTJwWKz/Logo.png"
             alt="Logo"
           />
         </div>
-        <p className="text-2xl font-semibold text-gray-600">
+        <p className="text-2xl font-semibold text-gray-800">
           Connecting Students, Empowering Exchanges
         </p>
       </div>
