@@ -1,7 +1,7 @@
 import  { useState } from 'react';
 
 const FeedbackModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [setIsModalOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [note, setNote] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,16 +31,16 @@ const FeedbackModal = () => {
     }
   };
 
-  if (!isModalOpen) {
-    return (
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-      >
-        Give Feedback
-      </button>
-    );
-  }
+  // if (!isModalOpen) {
+  //   return (
+  //     <button
+  //       onClick={() => setIsModalOpen(true)}
+  //       className="bg-blue-500 text-white px-4 py-2 rounded"
+  //     >
+  //       Give Feedback
+  //     </button>
+  //   );
+  // }
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -56,7 +56,7 @@ const FeedbackModal = () => {
         </div>
         
         <p className="text-gray-600 mb-4">
-          How would you rate your experience with the app today?
+          How would you rate your experience with the portal today?
         </p>
         
         <div className="flex justify-center space-x-2 mb-6">

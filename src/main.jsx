@@ -10,6 +10,7 @@ import Contact from './Components/Contact/Contact'
 import Notes from './Components/Notes/Notes'
 import PYQComponent from './Components/QuestionPaper/PYQComponent'
 import BooksPage from './Components/Book/BookPage'
+import Feedback from './Components/Feedback/Feedback'
 
 // const router = createBrowserRouter([
 //   {
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
       <Route path='notes' element={<Notes />}/>
       <Route path='question-papers' element={<PYQComponent />}/>
       <Route path='books' element={<BooksPage />}/>
+      <Route path='feedback' element={<Feedback />}/>
       
     </Route>
   )
