@@ -2,95 +2,166 @@
 import { React, useState } from 'react'
 import { FiDownload, FiSearch } from 'react-icons/fi'
 
-// Mock data for demonstration
-const questionPapers = [
-  { id: 1, name: "Data Structures 2024", url: "#" },
-  { id: 2, name: "Algorithms 2024", url: "#" },
-  { id: 3, name: "Advance Java 2023", url: "#" },
-  { id: 4, name: "C Programming 2022", url: "#" },
-  { id: 5, name: "Database Management Systems 2024", url: "#" },
+// Updated subjects for Computer Engineering
+const computerEngineeringSubjects = [
+  [
+    "Engineering Mathematics-I",
+    "Engineering Physics / Engineering Chemistry",
+    "Systems in Mechanical Engineering",
+    "Basic Electrical Engineering / Basic Electronics Engineering",
+    "Programming and Problem Solving / Engineering Mechanics"
+  ],
+  [
+    "Engineering Mathematics-II",
+    "Engineering Physics / Engineering Chemistry",
+    "Basic Electrical Engineering / Basic Electronics Engineering",
+    "Programming and Problem Solving / Engineering Mechanics",
+    "Engineering Graphics"
+  ],
+  [
+    "Discrete Mathematics",
+    "Fundamentals of Data Structures",
+    "Object Oriented Programming (OOP)",
+    "Computer Graphics",
+    "Digital Electronics and Logic Design"
+  ],
+  [
+    "Engineering Mathematics III",
+    "Data Structures and Algorithms",
+    "Software Engineering",
+    "Microprocessor",
+    "Principles of Programming Languages"
+  ],
+  [
+    "Database Management Systems",
+    "Theory of Computation",
+    "Systems Programming and Operating System",
+    "Computer Networks and Security",
+    "Elective I - Internet of Things and Embedded Systems"
+  ],
+  [
+    "Data Science and Big Data Analytics",
+    "Web Technology",
+    "Artificial Intelligence",
+    "Cloud Computing"
+  ],
+  [
+    "Design and Analysis of Algorithms",
+    "Machine Learning",
+    "Blockchain Technology",
+    "Cyber Security and Digital Forensics",
+    "Mobile Computing"
+  ],
+  [
+    "High Performance Computing",
+    "Deep Learning",
+    "Natural Language Processing",
+    "Elective-VI Business Intelligence"
+  ]
 ]
 
-const individualQuestions = [
-  { id: 1, question: "What is the time complexity of quicksort?", subject: "Algorithms" },
-  { id: 2, question: "Explain the concept of inheritance in OOP.", subject: "Object-Oriented Programming" },
-  { id: 3, question: "What is normalization in database design?", subject: "Database Management Systems" },
-  { id: 4, question: "What are Classes and Objects?", subject: "Object Oriented Programming " },
-]
+// Mock data for branches with subjects
+const questionPapers = {
+  "Civil Engineering": Array.from({ length: 8 }, (_, i) => ({
+    id: i + 1,
+    name: `Semester ${i + 1}`,
+    subjects: Array.from({ length: 5 }, (_, j) => ({
+      id: j + 1,
+      name: `Sub ${j + 1}`,
+      url: `https://drive.google.com/file/d/your-link-${i + 1}-${j + 1}`
+    }))
+  })),
+  "Computer Engineering": Array.from({ length: 8 }, (_, i) => ({
+    id: i + 1,
+    name: `Semester ${i + 1}`,
+    subjects: computerEngineeringSubjects[i].map((subject, j) => ({
+      id: j + 1,
+      name: subject,
+      url: `https://drive.google.com/file/d/your-link-computer-${i + 1}-${j + 1}`
+    }))
+  })),
+  "Mechanical Engineering": Array.from({ length: 8 }, (_, i) => ({
+    id: i + 1,
+    name: `Semester ${i + 1}`,
+    subjects: Array.from({ length: 5 }, (_, j) => ({
+      id: j + 1,
+      name: `Sub ${j + 1}`,
+      url: `https://drive.google.com/file/d/your-link-${i + 1}-${j + 1}`
+    }))
+  })),
+  "Electronics and Telecommunication Engineering": Array.from({ length: 8 }, (_, i) => ({
+    id: i + 1,
+    name: `Semester ${i + 1}`,
+    subjects: Array.from({ length: 5 }, (_, j) => ({
+      id: j + 1,
+      name: `Sub ${j + 1}`,
+      url: `https://drive.google.com/file/d/your-link-${i + 1}-${j + 1}`
+    }))
+  })),
+  "AIDS (Artificial Intelligence and Data Science)": Array.from({ length: 8 }, (_, i) => ({
+    id: i + 1,
+    name: `Semester ${i + 1}`,
+    subjects: Array.from({ length: 5 }, (_, j) => ({
+      id: j + 1,
+      name: `Sub ${j + 1}`,
+      url: `https://drive.google.com/file/d/your-link-${i + 1}-${j + 1}`
+    }))
+  }))
+}
 
 export default function PYQComponent() {
-  const [activeTab, setActiveTab] = useState('papers')
+  const [selectedBranch, setSelectedBranch] = useState(null)
+  const [selectedSemester, setSelectedSemester] = useState(null)
   const [searchTerm, setSearchTerm] = useState("")
 
-  const filteredPapers = questionPapers.filter(paper => 
-    paper.name.toLowerCase().includes(searchTerm.toLowerCase())
-  )
-
-  const filteredQuestions = individualQuestions.filter(q => 
-    q.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    q.subject.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  const filteredSubjects = selectedSemester
+    ? selectedSemester.subjects.filter(sub => 
+        sub.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : []
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-8 mb-8 px-4 sm:px-6 lg:px-8">
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="p-4 sm:p-6">
-          <h1 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6">Previous Year Questions (PYQ)</h1>
-          
-          {/* Search Input */}
-          <div className="flex items-center mb-4">
-            <input
-              type="text"
-              placeholder="Search by subject, topic, or year"
-              className="w-full p-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button className="bg-blue-500 text-white p-2 rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <FiSearch className="w-5 h-5" />
-            </button>
-          </div>
+          <h1 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6">Previous Year Question Papers (PYQ)</h1>
 
-          {/* Tab Buttons */}
-          <div className="flex mb-4">
-            <button
-              className={`flex-1 py-2 text-sm sm:text-base ${activeTab === 'papers' ? 'bg-gray-500 text-white' : 'bg-gray-200 text-gray-700'}`}
-              onClick={() => setActiveTab('papers')}
+          <div className="mb-4">
+            <select
+              className="w-full p-2 border rounded-md"
+              onChange={(e) => {
+                setSelectedBranch(e.target.value)
+                setSelectedSemester(null)
+              }}
+              value={selectedBranch || ""}
             >
-              Question Papers
-            </button>
-            <button
-              className={`flex-1 py-2 text-sm sm:text-base ${activeTab === 'questions' ? 'bg-gray-500 text-white' : 'bg-gray-200 text-gray-700'}`}
-              onClick={() => setActiveTab('questions')}
-            >
-              Individual Questions
-            </button>
-          </div>
-
-          {/* Content based on active tab */}
-          {activeTab === 'papers' && (
-            <ul className="space-y-2">
-              {filteredPapers.map(paper => (
-                <li key={paper.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-2 bg-gray-100 rounded">
-                  <span className="mb-2 sm:mb-0">{paper.name}</span>
-                  <a
-                    href={paper.url}
-                    download
-                    className="flex items-center bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 text-sm"
-                  >
-                    <FiDownload className="mr-1" />
-                    Download
-                  </a>
-                </li>
+              <option value="">Select Branch</option>
+              {Object.keys(questionPapers).map(branch => (
+                <option key={branch} value={branch}>{branch}</option>
               ))}
-            </ul>
-          )}
-          {activeTab === 'questions' && (
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <select
+              className="w-full p-2 border rounded-md"
+              onChange={(e) => setSelectedSemester(questionPapers[selectedBranch].find(sem => sem.id === parseInt(e.target.value)))}
+              value={selectedSemester ? selectedSemester.id : ""}
+              disabled={!selectedBranch}
+            >
+              <option value="">Select Semester</option>
+              {selectedBranch && questionPapers[selectedBranch].map(sem => (
+                <option key={sem.id} value={sem.id}>{sem.name}</option>
+              ))}
+            </select>
+          </div>
+
+          {selectedSemester && (
             <ul className="space-y-2">
-              {filteredQuestions.map(q => (
-                <li key={q.id} className="p-2 bg-gray-100 rounded">
-                  <p className="font-medium text-sm sm:text-base">{q.question}</p>
-                  <p className="text-xs sm:text-sm text-gray-600">Subject: {q.subject}</p>
+              {filteredSubjects.map(sub => (
+                <li key={sub.id} className="flex justify-between items-center">
+                  <span>{sub.name}</span>
+                  <a href={sub.url} className="text-orange-500">Download</a>
                 </li>
               ))}
             </ul>

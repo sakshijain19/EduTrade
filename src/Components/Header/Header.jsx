@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import  { React,useState } from "react";
+import { React, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import AuthModal from "../AuthModal/AuthModal";
@@ -11,6 +11,14 @@ export default function Header() {
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const handleNavClick = (item) => {
+    // Prevent login modal for "Home," "About," and "Feedback"
+    if (item !== "Home" && item !== "About" && item !== "Feedback") {
+      setIsAuthModalOpen(true);
+    }
+    setIsMenuOpen(false); // Close the mobile menu when a link is clicked
+  };
 
   return (
     <header className="shadow sticky z-50 top-0">
@@ -82,7 +90,7 @@ export default function Header() {
             id="mobile-menu-2"
           >
             <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-              {["Home", "Books","Notes","Chatbot","Question Papers", "About", "Feedback"].map((item) => (
+              {["Home", "Books", "Notes", "Chatbot", "Question Papers", "About", "Feedback"].map((item) => (
                 <li key={item}>
                   <NavLink
                     to={item === "Home" ? "/" : `/${item.toLowerCase().replace(" ", "-")}`}
@@ -91,7 +99,7 @@ export default function Header() {
                         isActive ? "text-blue-600" : "text-gray-700"
                       } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-600 lg:p-0`
                     }
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => handleNavClick(item)} // Conditional login modal
                   >
                     {item}
                   </NavLink>
