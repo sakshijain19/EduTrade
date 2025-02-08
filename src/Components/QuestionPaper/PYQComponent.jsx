@@ -161,7 +161,7 @@ export default function PYQComponent() {
               {filteredSubjects.map(sub => (
                 <li key={sub.id} className="flex justify-between items-center">
                   <span>{sub.name}</span>
-                  <a href={sub.url} className="text-orange-500">Download</a>
+                  <a href={sub.url} className="text-blue-500">Download</a>
                 </li>
               ))}
             </ul>
