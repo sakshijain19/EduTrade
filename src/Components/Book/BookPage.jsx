@@ -1,25 +1,68 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { Search, MapPin, IndianRupee, ArrowLeft, Send } from 'lucide-react';
 import { Input } from '../BookCompo/Input/Input';
 import { Button } from '../BookCompo/Button/Button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../BookCompo/Select/Select';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../BookCompo/Card/Card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../BookCompo/Tabs/Tabs';
+
 
 const mockBooks = [
   { id: 1, title: "C++ Programming", author: "F. Scott Fitzgerald", price: 499, image: "/placeholder.svg", location: "Nashik", edition: "First Edition", language: "English", isbn: "9780446310789", description: "A comprehensive guide to C++ programming." },
   { id: 2, title: "Advance Java", author: "Harper Lee", price: 299, image: "/placeholder.svg", location: "Mumbai", edition: "Second Edition", language: "English", isbn: "9780060935467", description: "An in-depth look at advanced Java concepts." },
   { id: 3, title: "Python", author: "George Orwell", price: 426, image: "/placeholder.svg", location: "Pune", edition: "Third Edition", language: "English", isbn: "9780451524935", description: "Learn Python programming from basics to advanced topics." },
-  { id: 4, title: "Data Structure", author: "John Doe", price: 750, image: "/placeholder.svg", location: "Nashik", edition: "First Edition", language: "English", isbn: "9780131103627", description: "Explore various data structures and their implementations." },
+  { id: 4, title: "Data Structure", author: "John Doe", price: 750, image: "/placeholder.svg", location: "Nashik", edition: "First Edition", language: "English", isbn: "9780131103627", description: "Explore various data structures and their implementations." }
 ];
 
-function BooksPage() {
+const BooksPage = () => {
+  const [location, setLocation] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [transactionType, setTransactionType] = useState("buy");
   const [activeTab, setActiveTab] = useState("browse");
   const [selectedBook, setSelectedBook] = useState(null);
   const [message, setMessage] = useState("");
 
+  const [sellFormData, setSellFormData] = useState({
+    bookImage: null,
+    bookTitle: '',
+    author: '',
+    condition: '',
+    language: '',
+    upiId: '',
+    mobileNumber: '+91',
+    price: '',
+    location: '',
+    edition: '',
+    pages: '',
+    description: ''
+  });
+
+  const handleSellFormChange = (e) => {
+    const { name, value } = e.target;
+    setSellFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleImageChange = (e) => {
+    setSellFormData(prevState => ({
+      ...prevState,
+      bookImage: e.target.files[0]
+    }));
+  };
+
+  const handleSellFormSubmit = (e) => {
+    e.preventDefault();
+    console.log('Selling book:', sellFormData);
+    alert('Book listed for sale successfully!');
+  };
+
   const filteredBooks = mockBooks.filter(
-    (book) => book.title.toLowerCase().includes(searchQuery.toLowerCase())
+    (book) =>
+      book.location.toLowerCase().includes(location.toLowerCase()) &&
+      book.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleBookClick = (book) => {
@@ -34,7 +77,6 @@ function BooksPage() {
     alert(`Message sent to the seller: ${message}`);
     setMessage("");
   };
-
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-4xl font-bold text-center mb-8 text-black">Books Marketplace</h1>
@@ -43,22 +85,39 @@ function BooksPage() {
         <>
           {activeTab === "browse" && (
             <div className="flex flex-col md:flex-row gap-4 mb-8 items-center justify-center">
-              <div className="w-full md:w-1/2">
+              <div className="w-full md:w-1/3">
+                <Input
+                  type="text"
+                  placeholder="Enter your location"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+              <div className="w-full md:w-1/3">
                 <Input
                   type="text"
                   placeholder="Search for books"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full"
-                  icon={<Search className="w-4 h-4" />}
                 />
               </div>
+              <Select value={transactionType} onValueChange={setTransactionType}>
+                <SelectTrigger className="w-full md:w-[180px]">
+                  <SelectValue placeholder="Select transaction type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="buy">Buy</SelectItem>
+                  <SelectItem value="rent">Rent</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           )}
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="flex justify-center mb-6">
-              <TabsTrigger
+            <TabsTrigger
                 value="browse"
                 className={`px-4 py-2 rounded-md transition-all duration-300 ${
                   activeTab === 'browse' ? 'bg-gray-500 text-white shadow-lg' : 'bg-gray-200 text-gray-800'
@@ -84,8 +143,8 @@ function BooksPage() {
                   {filteredBooks.map((book) => (
                     <Card key={book.id} className="shadow-lg cursor-pointer" onClick={() => handleBookClick(book)}>
                       <CardHeader>
-                        <CardTitle className="text-lg font-semibold text-blue-900">{book.title}</CardTitle>
-                        <CardDescription className="text-sm text-gray-600">{book.author}</CardDescription>
+                        <CardTitle>{book.title}</CardTitle>
+                        <CardDescription>{book.author}</CardDescription>
                       </CardHeader>
                       <CardContent>
                         <img src={book.image} alt={book.title} className="w-full h-48 object-cover mb-4" />
@@ -93,7 +152,7 @@ function BooksPage() {
                         <p className="flex items-center text-gray-700"><IndianRupee className="w-4 h-4 mr-2" /> ₹{book.price}</p>
                       </CardContent>
                       <CardFooter>
-                        <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+                      <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors">
                           View Details
                         </Button>
                       </CardFooter>
@@ -108,34 +167,146 @@ function BooksPage() {
             </TabsContent>
 
             <TabsContent value="sell">
-              <Card className="shadow-lg">
+              <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg font-semibold text-blue-900">Sell Your Book</CardTitle>
-                  <CardDescription className="text-sm text-gray-600">Enter the details of the book you want to sell</CardDescription>
+                  <CardTitle>Sell Your Book</CardTitle>
+                  <CardDescription>Fill in the details of your book</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form className="space-y-4">
-                    <Input type="file" accept="image/*" />
-                    <Input type="text" placeholder="Book Title" />
-                    <Input type="text" placeholder="Author" />
-                    <Input type="number" placeholder="Price" />
-                    <Input type="text" placeholder="Condition (e.g., Good, New)" />
-                    <Input type="text" placeholder="Edition (e.g., First Edition)" />
-                    <Input type="number" placeholder="Pages" />
-                    <Input type="text" placeholder="Language (e.g., English)" />
-                    <Input type="text" placeholder="ISBN (e.g., 9780446310789)" />
-                    <textarea
-                      className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-600"
-                      placeholder="Book Description"
-                      rows={4}
-                    ></textarea>
-                  </form>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+                  <form onSubmit={handleSellFormSubmit} className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Book Image</label>
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Book Title</label>
+                      <Input
+                        name="bookTitle"
+                        value={sellFormData.bookTitle}
+                        onChange={handleSellFormChange}
+                        placeholder="Enter book title"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Author</label>
+                      <Input
+                        name="author"
+                        value={sellFormData.author}
+                        onChange={handleSellFormChange}
+                        placeholder="Enter author name"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Condition</label>
+                      <Select
+                        value={sellFormData.condition}
+                        onValueChange={(value) => handleSellFormChange({ target: { name: 'condition', value } })}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select book condition" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="new">New</SelectItem>
+                          <SelectItem value="likeNew">Like New</SelectItem>
+                          <SelectItem value="good">Good</SelectItem>
+                          <SelectItem value="fair">Fair</SelectItem>
+                          <SelectItem value="poor">Poor</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Language</label>
+                      <Input
+                        name="language"
+                        value={sellFormData.language}
+                        onChange={handleSellFormChange}
+                        placeholder="Enter book language"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">UPI ID</label>
+                      <Input
+                        name="upiId"
+                        value={sellFormData.upiId}
+                        onChange={handleSellFormChange}
+                        placeholder="Enter UPI ID (must end with @ibl)"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Mobile Number</label>
+                      <Input
+                        name="mobileNumber"
+                        value={sellFormData.mobileNumber}
+                        onChange={handleSellFormChange}
+                        placeholder="+91"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Price</label>
+                      <Input
+                        name="price"
+                        type="number"
+                        value={sellFormData.price}
+                        onChange={handleSellFormChange}
+                        placeholder="Enter price"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Your Location</label>
+                      <Input
+                        name="location"
+                        value={sellFormData.location}
+                        onChange={handleSellFormChange}
+                        placeholder="Enter your location"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Edition</label>
+                      <Input
+                        name="edition"
+                        value={sellFormData.edition}
+                        onChange={handleSellFormChange}
+                        placeholder="Enter book edition"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Pages</label>
+                      <Input
+                        name="pages"
+                        type="number"
+                        value={sellFormData.pages}
+                        onChange={handleSellFormChange}
+                        placeholder="Enter number of pages"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Book Description</label>
+                      <textarea
+                        className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-600"
+                        placeholder="Book Description"
+                        rows={4}
+                      ></textarea>
+                    </div>
+
+                    <Button className="w-full Mobg-blue-600 text-Black hover:bg-blue-700 transition-colors">
                     List Book for Sale
                   </Button>
-                </CardFooter>
+                  </form>
+                </CardContent>
               </Card>
             </TabsContent>
           </Tabs>
@@ -144,13 +315,13 @@ function BooksPage() {
 
       {selectedBook && (
         <div className="mt-8">
-          <Button onClick={handleBackClick} className="mb-4 flex items-center bg-gray-200 text-gray-800 hover:bg-gray-300">
+          <Button onClick={handleBackClick} className="mb-4 flex items-center">
             <ArrowLeft className="w-4 h-4 mr-2" /> Back to Books
           </Button>
-          <Card className="shadow-lg">
+          <Card>
             <CardHeader>
-              <CardTitle className="text-2xl font-semibold text-blue-900">{selectedBook.title}</CardTitle>
-              <CardDescription className="text-lg text-gray-600">{selectedBook.author}</CardDescription>
+              <CardTitle>{selectedBook.title}</CardTitle>
+              <CardDescription>{selectedBook.author}</CardDescription>
             </CardHeader>
             <CardContent>
               <img src={selectedBook.image} alt={selectedBook.title} className="w-full h-64 object-cover mb-4" />
@@ -160,16 +331,19 @@ function BooksPage() {
               <p className="text-gray-700 mb-2"><strong>Language:</strong> {selectedBook.language}</p>
               <p className="text-gray-700 mb-2"><strong>ISBN:</strong> {selectedBook.isbn}</p>
               <p className="text-gray-700 mb-4"><strong>Description:</strong> {selectedBook.description}</p>
+
               <div className="mt-6">
                 <h3 className="text-lg font-semibold mb-2">Contact Seller</h3>
-                <textarea
-                  className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-600 mb-2"
-                  placeholder="Type your message here..."
-                  rows={4}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                ></textarea>
-                <Button onClick={handleSendMessage} className="w-full bg-green-600 text-white hover:bg-green-700 transition-colors flex items-center justify-center">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Mobile Number</label>
+                  <Input
+                    name="mobileNumber"
+                    value={sellFormData.mobileNumber}
+                    onChange={handleSellFormChange}
+                    placeholder="+91"
+                  />
+                </div>
+                <Button onClick={handleSendMessage} className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors flex items-center justify-center">
                   <Send className="w-4 h-4 mr-2" /> Send Message
                 </Button>
               </div>
@@ -179,6 +353,6 @@ function BooksPage() {
       )}
     </div>
   );
-}
+};
 
 export default BooksPage;
