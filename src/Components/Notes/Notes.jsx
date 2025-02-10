@@ -184,7 +184,7 @@
 //       </div>
 //     </div>
 //   );
-// }
+// // }
 
 
 
@@ -251,11 +251,32 @@ export default function Notes() {
   };
 
   const sampleNotes = [
-    { title: 'Introduction to React', subject: 'Web Development', author: 'Dr. Smith', type: 'PDF' },
-    { title: 'Data Structures Basics', subject: 'Computer Science', author: 'Prof. Johnson', type: 'DOC' },
+    { title: 'Discrete Mathematics', subject: 'Computer Science', author:'', type: 'PDF'},
+    { title: 'Computer Graphics', subject: 'Computer Science', author:'', type: 'PDF'},
+    { title: 'Database Management Systems', subject: 'Computer Science', author:'', type: 'PDF'},
+    { title: 'Digital Electronics and Logic Design', subject: 'Computer Science', author:'', type: 'PDF'},
+    { title: 'Object Oriented Programming (OOP)', subject: 'Computer Science', author:'', type: 'PDF'},
+    { title: 'System Programming & Operating Systems', subject: 'Computer Science', author:'', type: 'PDF'},
+    { title: 'Design and Analysis of Algorithms', subject: 'Computer Science', author: 'Dr. Smith', type: 'PDF' },
+    { title: 'Engineering Mathematics - III', subject: 'Computer Science', author: 'Prof. Johnson', type: 'DOC' },
     { title: 'Machine Learning Fundamentals', subject: 'Artificial Intelligence', author: 'Dr. Lee', type: 'PDF' },
     { title: 'CSS Basics', subject: 'Web Development', author: 'Prof. Miller', type: 'DOCX' },
-    { title: 'Python for Beginners', subject: 'Programming', author: 'Dr. Brown', type: 'PDF' },
+    { title: 'Python for Beginners', subject: 'Programming', author: 'Dr. Brown', type: 'PDF' },    
+    { title: 'Cyber Security & Digital Forensics', subject: 'Computer Science', author:'abc', type: 'PDF'},
+    { title: 'Internet of Things (IoT)', subject: 'Computer Science', author:'abc', type: 'PDF'},
+    { title: 'Blockchain Technology', subject: 'Computer Science', author:'abc', type: 'PDF'},
+    { title: 'Human Computer Interaction', subject: 'Computer Science', author:'abc', type: 'PDF'},
+    { title: 'Web Technology', subject: 'Web Development', author: 'Prof. Miller', type: 'DOCX' },
+    { title: 'Deep Learning', subject: 'Computer Science', author: 'Dr. Brown', type: 'PDF' },
+    { title: 'Natural Language Processing', subject: 'Computer Science', author: 'Dr. Brown', type: 'PDF' },
+    { title: 'Software Engineering', subject: 'Computer Science', author:'abc', type: 'PDF'},
+    { title: 'Microprocessor', subject: 'Computer Science', author:'abc', type: 'PDF'},
+    { title: 'Computer Networks', subject: 'Computer Science', author:'abc', type: 'PDF'},
+    { title: 'Theory of Computation', subject: 'Computer Science', author:'abc', type: 'PDF'},
+    { title: 'Cloud Computing', subject: 'Computer Science', author:'abc', type: 'PDF'},
+    { title: 'Data Science and Big Data Analytics', subject: 'Computer Science', author:'abc', type: 'PDF'},
+    { title: 'Artificial Intelligence', subject: 'Computer Science', author:'abc', type: 'PDF'},
+    { title: 'Mobile Computing', subject: 'Computer Science', author:'abc', type: 'PDF'},
   ];
 
   const filteredNotes = sampleNotes.filter((note) => {
@@ -325,10 +346,27 @@ export default function Notes() {
                   onChange={(e) => setSubject(e.target.value)}
                 >
                   <option>All Subjects</option>
-                  <option>Web Development</option>
-                  <option>Computer Science</option>
+                  <option>Discrete Mathematics</option>
+                  <option>Fundamentals of Data Structures</option>
+                  <option>Object Oriented Programming (OOP)</option>
+                  <option>Computer Graphics 17</option>
+                  <option>Digital Electronics and Logic Design</option>
+                  <option>Engineering Mathematics - III</option>
+                  <option>Design and Analysis of Algorithms</option>
+                  <option>System Programming & Operating Systems</option>
+                  <option>Database Management Systems</option>
+                  <option>Software Engineering</option>
+                  <option>Microprocessor</option>
+                  <option>Computer Networks</option>
+                  <option>Theory of Computation</option>
+                  <option>Machine Learning</option>
+                  <option>Cloud Computing</option>
                   <option>Artificial Intelligence</option>
-                  <option>Programming</option>
+                  <option>Mobile Computing</option>
+                  <option>Cyber Security & Digital Forensics</option>
+                  <option>Internet of Things (IoT)</option>
+                  <option>Blockchain Technology</option>
+                  <option>Human Computer Interaction</option>
                 </select>
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -396,6 +434,7 @@ export default function Notes() {
                       onChange={(e) => setSubject(e.target.value)}
                     >
                       <option value="">Select subject</option>
+                      <option>Discrete Mathematics</option>
                       <option>Web Development</option>
                       <option>Computer Science</option>
                       <option>Artificial Intelligence</option>
