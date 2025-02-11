@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import React, { useState } from 'react'; // Ensure useState is imported
 import { Search, MapPin, IndianRupee, ArrowLeft, Send } from 'lucide-react';
 import { Input } from '../BookCompo/Input/Input';
 import { Button } from '../BookCompo/Button/Button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../BookCompo/Select/Select';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../BookCompo/Card/Card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../BookCompo/Tabs/Tabs';
-
 
 const mockBooks = [
   { id: 1, title: "C++ Programming", author: "F. Scott Fitzgerald", price: 499, image: "/placeholder.svg", location: "Nashik", edition: "First Edition", language: "English", isbn: "9780446310789", description: "A comprehensive guide to C++ programming." },
@@ -22,6 +20,7 @@ const BooksPage = () => {
   const [activeTab, setActiveTab] = useState("browse");
   const [selectedBook, setSelectedBook] = useState(null);
   const [message, setMessage] = useState("");
+  const [priceRange, setPriceRange] = useState("");
 
   const [sellFormData, setSellFormData] = useState({
     bookImage: null,
@@ -59,11 +58,16 @@ const BooksPage = () => {
     alert('Book listed for sale successfully!');
   };
 
-  const filteredBooks = mockBooks.filter(
-    (book) =>
-      book.location.toLowerCase().includes(location.toLowerCase()) &&
-      book.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredBooks = mockBooks.filter((book) => {
+    const matchesLocation = book.location.toLowerCase().includes(location.toLowerCase());
+    const matchesSearchQuery = book.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesPriceRange = !priceRange || (
+      priceRange === "500+" ? book.price >= 500 :
+      book.price >= parseInt(priceRange.split('-')[0]) && book.price <= parseInt(priceRange.split('-')[1])
+    );
+
+    return matchesLocation && matchesSearchQuery && matchesPriceRange;
+  });
 
   const handleBookClick = (book) => {
     setSelectedBook(book);
@@ -77,6 +81,7 @@ const BooksPage = () => {
     alert(`Message sent to the seller: ${message}`);
     setMessage("");
   };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-4xl font-bold text-center mb-8 text-black">Books Marketplace</h1>
@@ -103,13 +108,21 @@ const BooksPage = () => {
                   className="w-full"
                 />
               </div>
-              <Select value={transactionType} onValueChange={setTransactionType}>
+              <Select value={priceRange} onValueChange={setPriceRange}>
                 <SelectTrigger className="w-full md:w-[180px]">
-                  <SelectValue placeholder="Select transaction type" />
+                  <SelectValue placeholder="Filter by price" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="buy">Buy</SelectItem>
-                  <SelectItem value="rent">Rent</SelectItem>
+                  <SelectItem value="100-200">₹100 - ₹200</SelectItem>
+                  <SelectItem value="200-300">₹200 - ₹300</SelectItem>
+                  <SelectItem value="300-400">₹300 - ₹400</SelectItem>
+                  <SelectItem value="400-500">₹400 - ₹500</SelectItem>
+                  <SelectItem value="500-600">₹500 - ₹600</SelectItem>
+                  <SelectItem value="600-700">₹600 - ₹700</SelectItem>
+                  <SelectItem value="700-800">₹700 - ₹800</SelectItem>
+                  <SelectItem value="800-900">₹800 - ₹900</SelectItem>
+                  <SelectItem value="900-1000">₹900 - ₹1000</SelectItem>
+                  <SelectItem value="1000+">₹1000+</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -117,7 +130,7 @@ const BooksPage = () => {
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="flex justify-center mb-6">
-            <TabsTrigger
+              <TabsTrigger
                 value="browse"
                 className={`px-4 py-2 rounded-md transition-all duration-300 ${
                   activeTab === 'browse' ? 'bg-gray-500 text-white shadow-lg' : 'bg-gray-200 text-gray-800'
@@ -152,7 +165,7 @@ const BooksPage = () => {
                         <p className="flex items-center text-gray-700"><IndianRupee className="w-4 h-4 mr-2" /> ₹{book.price}</p>
                       </CardContent>
                       <CardFooter>
-                      <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+                        <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors">
                           View Details
                         </Button>
                       </CardFooter>
@@ -303,8 +316,8 @@ const BooksPage = () => {
                     </div>
 
                     <Button className="w-full Mobg-blue-600 text-Black hover:bg-blue-700 transition-colors">
-                    List Book for Sale
-                  </Button>
+                      List Book for Sale
+                    </Button>
                   </form>
                 </CardContent>
               </Card>
