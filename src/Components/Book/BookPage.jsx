@@ -1,4 +1,5 @@
-import React, { useState } from 'react'; // Ensure useState is imported
+/* eslint-disable no-unused-vars */
+import { useState } from 'react';
 import { Search, MapPin, IndianRupee, ArrowLeft, Send } from 'lucide-react';
 import { Input } from '../BookCompo/Input/Input';
 import { Button } from '../BookCompo/Button/Button';
@@ -16,7 +17,6 @@ const mockBooks = [
 const BooksPage = () => {
   const [location, setLocation] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [transactionType, setTransactionType] = useState("buy");
   const [activeTab, setActiveTab] = useState("browse");
   const [selectedBook, setSelectedBook] = useState(null);
   const [message, setMessage] = useState("");
@@ -39,6 +39,15 @@ const BooksPage = () => {
 
   const handleSellFormChange = (e) => {
     const { name, value } = e.target;
+    
+    // Add validation for author field
+    if (name === 'author') {
+      // Allow only letters and spaces
+      if (!/^[A-Za-z\s]*$/.test(value)) {
+        alert('Author name should contain only alphabets');
+        return;
+      }
+    }
     setSellFormData(prevState => ({
       ...prevState,
       [name]: value
@@ -46,14 +55,32 @@ const BooksPage = () => {
   };
 
   const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && !file.type.startsWith('image/')) {
+      alert('Please select an image file.');
+      return;
+    }
     setSellFormData(prevState => ({
       ...prevState,
-      bookImage: e.target.files[0]
+      bookImage: file
     }));
   };
 
   const handleSellFormSubmit = (e) => {
     e.preventDefault();
+    const requiredFields = [
+      'bookImage', 'bookTitle', 'author', 'condition', 
+      'language', 'upiId', 'mobileNumber', 'price', 
+      'location', 'pages'
+    ];
+
+    for (const field of requiredFields) {
+      if (!sellFormData[field]) {
+        alert(`Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}.`);
+        return;
+      }
+    }
+
     console.log('Selling book:', sellFormData);
     alert('Book listed for sale successfully!');
   };
@@ -182,7 +209,7 @@ const BooksPage = () => {
             <TabsContent value="sell">
               <Card>
                 <CardHeader>
-                  <CardTitle>Sell Your Book</CardTitle>
+                  <CardTitle className="text-lg font-semibold text-blue-900">Sell Your Book</CardTitle>
                   <CardDescription>Fill in the details of your book</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -213,6 +240,8 @@ const BooksPage = () => {
                         value={sellFormData.author}
                         onChange={handleSellFormChange}
                         placeholder="Enter author name"
+                        pattern="[A-Za-z\s]+"
+                        title="Please enter only alphabets"
                       />
                     </div>
 
@@ -226,10 +255,8 @@ const BooksPage = () => {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="new">New</SelectItem>
-                          <SelectItem value="likeNew">Like New</SelectItem>
                           <SelectItem value="good">Good</SelectItem>
-                          <SelectItem value="fair">Fair</SelectItem>
-                          <SelectItem value="poor">Poor</SelectItem>
+                          <SelectItem value="fair">Average</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -250,7 +277,7 @@ const BooksPage = () => {
                         name="upiId"
                         value={sellFormData.upiId}
                         onChange={handleSellFormChange}
-                        placeholder="Enter UPI ID (must end with @ibl)"
+                        placeholder="Enter UPI ID (must end with @ybl)"
                       />
                     </div>
 
@@ -277,12 +304,14 @@ const BooksPage = () => {
 
                     <div>
                       <label className="block text-sm font-medium mb-1">Your Location</label>
+                      {/* Placeholder for Map Component */}
                       <Input
                         name="location"
                         value={sellFormData.location}
                         onChange={handleSellFormChange}
                         placeholder="Enter your location"
                       />
+                      {/* You can replace the above Input with a Map component for location selection */}
                     </div>
 
                     <div>
@@ -309,13 +338,17 @@ const BooksPage = () => {
                     <div>
                       <label className="block text-sm font-medium mb-1">Book Description</label>
                       <textarea
+                        name="description"
                         className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-600"
                         placeholder="Book Description"
                         rows={4}
+                        value={sellFormData.description}
+                        onChange={handleSellFormChange}
                       ></textarea>
                     </div>
 
-                    <Button className="w-full Mobg-blue-600 text-Black hover:bg-blue-700 transition-colors">
+                    <Button type="submit"
+                      className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-blue hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                       List Book for Sale
                     </Button>
                   </form>
