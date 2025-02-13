@@ -8,10 +8,10 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../BookCompo/Tabs/Tabs';
 
 const mockBooks = [
-  { id: 1, title: "C++ Programming", author: "F. Scott Fitzgerald", price: 499, image: "/placeholder.svg", location: "Nashik", edition: "First Edition", language: "English", isbn: "9780446310789", description: "A comprehensive guide to C++ programming." },
-  { id: 2, title: "Advance Java", author: "Harper Lee", price: 299, image: "/placeholder.svg", location: "Mumbai", edition: "Second Edition", language: "English", isbn: "9780060935467", description: "An in-depth look at advanced Java concepts." },
-  { id: 3, title: "Python", author: "George Orwell", price: 426, image: "/placeholder.svg", location: "Pune", edition: "Third Edition", language: "English", isbn: "9780451524935", description: "Learn Python programming from basics to advanced topics." },
-  { id: 4, title: "Data Structure", author: "John Doe", price: 750, image: "/placeholder.svg", location: "Nashik", edition: "First Edition", language: "English", isbn: "9780131103627", description: "Explore various data structures and their implementations." }
+  { id: 1, title: "C++ Programming", author: "F. Scott Fitzgerald", price: 499, image: "/placeholder.svg", location: "Nashik", edition: "First Edition", language: "English", upiId: "9780446310789", description: "A comprehensive guide to C++ programming." },
+  { id: 2, title: "Advance Java", author: "Harper Lee", price: 299, image: "/placeholder.svg", location: "Mumbai", edition: "Second Edition", language: "English", upiId: "9780060935467", description: "An in-depth look at advanced Java concepts." },
+  { id: 3, title: "Python", author: "George Orwell", price: 426, image: "/placeholder.svg", location: "Pune", edition: "Third Edition", language: "English", upiId: "9780451524935", description: "Learn Python programming from basics to advanced topics." },
+  { id: 4, title: "Data Structure", author: "John Doe", price: 750, image: "/placeholder.svg", location: "Nashik", edition: "First Edition", language: "English", upiId: "9780131103627", description: "Explore various data structures and their implementations." }
 ];
 
 const BooksPage = () => {
@@ -375,7 +375,7 @@ const BooksPage = () => {
               <p className="flex items-center text-gray-700 mb-2"><IndianRupee className="w-4 h-4 mr-2" /> ₹{selectedBook.price}</p>
               <p className="text-gray-700 mb-2"><strong>Edition:</strong> {selectedBook.edition}</p>
               <p className="text-gray-700 mb-2"><strong>Language:</strong> {selectedBook.language}</p>
-              <p className="text-gray-700 mb-2"><strong>ISBN:</strong> {selectedBook.isbn}</p>
+              <p className="text-gray-700 mb-2"><strong>upiId:</strong> {selectedBook.upiId}</p>
               <p className="text-gray-700 mb-4"><strong>Description:</strong> {selectedBook.description}</p>
 
               <div className="mt-6">
