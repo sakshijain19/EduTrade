@@ -178,33 +178,49 @@ const BooksPage = () => {
             </TabsList>
 
             <TabsContent value="browse">
-              {filteredBooks.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredBooks.map((book) => (
-                    <Card key={book.id} className="shadow-lg cursor-pointer" onClick={() => handleBookClick(book)}>
-                      <CardHeader>
-                        <CardTitle>{book.title}</CardTitle>
-                        <CardDescription>{book.author}</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <img src={book.image} alt={book.title} className="w-full h-48 object-cover mb-4" />
-                        <p className="flex items-center text-gray-700"><MapPin className="w-4 h-4 mr-2" /> {book.location}</p>
-                        <p className="flex items-center text-gray-700"><IndianRupee className="w-4 h-4 mr-2" /> ₹{book.price}</p>
-                      </CardContent>
-                      <CardFooter>
-                        <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors">
-                          View Details
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  ))}
+          {filteredBooks.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredBooks.map((book) => (
+                <div key={book.id} 
+                     className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer" 
+                     onClick={() => handleBookClick(book)}>
+                  <div className="relative">
+                    <img 
+                      src={book.image} 
+                      alt={book.title} 
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                      <h3 className="text-white font-semibold text-lg">{book.title}</h3>
+                      <p className="text-white/90 text-sm">{book.author}</p>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center text-gray-600">
+                        <MapPin className="w-4 h-4 mr-2" />
+                        <span className="text-sm">{book.location}</span>
+                      </div>
+                      <div className="flex items-center text-gray-800 font-semibold">
+                        <IndianRupee className="w-4 h-4 mr-2" />
+                        <span>₹{book.price}</span>
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-300">
+                        View Details
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              ) : (
-                <div className="text-center text-red-600 text-lg mt-14 mb-64">
-                  No books found matching your search.
-                </div>
-              )}
-            </TabsContent>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-red-600 text-lg mt-14 mb-64">
+              No books found matching your search.
+            </div>
+          )}
+        </TabsContent>
 
             <TabsContent value="sell">
               <Card>
