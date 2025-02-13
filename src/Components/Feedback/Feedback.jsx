@@ -1,101 +1,92 @@
-import  { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
-const FeedbackModal = () => {
-  const [setIsModalOpen] = useState(false);
+const FeedbackSection = () => {
+  const [feedback, setFeedback] = useState("");
   const [rating, setRating] = useState(0);
-  const [note, setNote] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const response = await fetch('http://localhost:5000/api/feedback', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ rating, note }),
-      });
-      
-      if (response.ok) {
-        setNote('');
-        setRating(0);
-        setIsModalOpen(false);
-      }
-    } catch (error) {
-      console.error('Error submitting feedback:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
+    alert(`Feedback Submitted! Rating: ${rating}, Feedback: ${feedback}`); // Replace with actual submission logic
   };
 
-  // if (!isModalOpen) {
-  //   return (
-  //     <button
-  //       onClick={() => setIsModalOpen(true)}
-  //       className="bg-blue-500 text-white px-4 py-2 rounded"
-  //     >
-  //       Give Feedback
-  //     </button>
-  //   );
-  // }
-
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg p-6 w-96 max-w-full mx-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">We need your feedback</h2>
-          <button
-            onClick={() => setIsModalOpen(false)}
-            className="text-gray-500 hover:text-gray-700 text-2xl"
-          >
-            ×
-          </button>
-        </div>
-        
-        <p className="text-gray-600 mb-4">
-          How would you rate your experience with the portal today?
-        </p>
-        
-        <div className="flex justify-center space-x-2 mb-6">
+    <div 
+      className="feedback-container"
+      style={{
+        backgroundImage: "url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080')", // Placeholder image
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <motion.div 
+        className="feedback-form"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        style={{
+          background: "rgba(255, 255, 255, 0.9)", // Slight transparency
+          padding: "20px",
+          borderRadius: "10px",
+          boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.2)",
+          width: "400px",
+          textAlign: "center"
+        }}
+      >
+        <h2>Give Your Feedback</h2>
+        <div style={{ margin: "10px 0" }}>
           {[1, 2, 3, 4, 5].map((star) => (
-            <button
-              key={star}
+            <span 
+              key={star} 
               onClick={() => setRating(star)}
-              className={`text-3xl transition-colors ${
-                rating >= star ? 'text-blue-400' : 'text-gray-300'
-              }`}
+              style={{
+                fontSize: "24px",
+                cursor: "pointer",
+                color: rating >= star ? "#ffcc00" : "#ccc", // Filled star color
+                transition: "color 0.2s"
+              }}
             >
               ★
-            </button>
+            </span>
           ))}
         </div>
-        
         <form onSubmit={handleSubmit}>
           <textarea
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder="Write your note"
-            className="w-full p-3 border rounded-lg mb-4 h-24 resize-none"
+            placeholder="Enter your feedback..."
+            value={feedback}
+            onChange={(e) => setFeedback(e.target.value)}
+            style={{
+              width: "100%",
+              height: "100px",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              marginBottom: "10px"
+            }}
+            required
           />
-          
-          <button
-            type="submit"
-            disabled={isSubmitting || rating === 0}
-            className={`w-full py-3 rounded-lg text-white font-medium ${
-              isSubmitting || rating === 0
-                ? 'bg-gray-300'
-                : 'bg-blue-400 hover:bg-blue-500'
-            }`}
+          <button 
+            type="submit" 
+            style={{
+              padding: "10px 20px",
+              borderRadius: "5px",
+              background: "#007bff",
+              color: "#fff",
+              border: "none",
+              cursor: "pointer"
+            }}
           >
-            {isSubmitting ? 'Submitting...' : 'Submit'}
+            Submit
           </button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 };
 
-export default FeedbackModal;
+export default FeedbackSection;

@@ -60,15 +60,244 @@ const computerEngineeringSubjects = [
   ]
 ]
 
+// Updated subjects for Civil Engineering
+const civilEngineeringSubjects = [
+  [
+    "Engineering Mathematics-I",
+    "Engineering Physics / Engineering Chemistry",
+    "Engineering Mechanics",
+    "Basic Civil Engineering",
+    "Basic Electrical and Electronics Engineering"
+  ],
+  [
+    "Engineering Mathematics-II",
+    "Engineering Geology",
+    "Strength of Materials",
+    "Fluid Mechanics",
+    "Surveying"
+  ],
+  [
+    "Engineering Mathematics-III",
+    "Structural Analysis-I",
+    "Geotechnical Engineering-I",
+    "Concrete Technology",
+    "Building Technology and Architectural Planning"
+  ],
+  [
+    "Structural Analysis-II",
+    "Geotechnical Engineering-II",
+    "Environmental Engineering-I",
+    "Transportation Engineering-I",
+    "Hydrology and Water Resource Engineering"
+  ],
+  [
+    "Design of Steel Structures",
+    "Environmental Engineering-II",
+    "Transportation Engineering-II",
+    "Hydraulic Engineering",
+    "Foundation Engineering"
+  ],
+  [
+    "Advanced Structural Analysis",
+    "Earthquake Engineering",
+    "Construction Management",
+    "Advanced Concrete Technology"
+  ],
+  [
+    "Design of Reinforced Concrete Structures",
+    "Traffic Engineering and Transport Planning",
+    "Water and Wastewater Treatment",
+    "Infrastructure Engineering"
+  ],
+  [
+    "Advanced Construction Techniques",
+    "Pavement Design",
+    "Water Resource Planning and Management",
+    "Sustainable Development"
+  ]
+]
+
+
+const mechanicalEngineeringSubjects = [
+  [
+    "Engineering Mathematics-I",
+    "Engineering Physics / Engineering Chemistry",
+    "Systems in Mechanical Engineering",
+    "Basic Electrical Engineering / Basic Electronics Engineering",
+    "Programming and Problem Solving / Engineering Mechanics"
+  ],
+  [
+    "Engineering Mathematics-II",
+    "Engineering Physics / Engineering Chemistry",
+    "Basic Electrical Engineering / Basic Electronics Engineering",
+    "Programming and Problem Solving / Engineering Mechanics",
+    "Engineering Graphics"
+  ],
+  [
+    "Engineering Mathematics-III",
+    "Thermodynamics",
+    "Fluid Mechanics",
+    "Manufacturing Processes",
+    "Material Science and Metallurgy",
+    "Strength of Materials"
+  ],
+  [
+    "Engineering Mathematics-IV",
+    "Applied Thermodynamics",
+    "Heat Transfer",
+    "Theory of Machines – I",
+    "Numerical & Statistical Methods",
+    "Electrical and Electronics Engineering"
+  ],
+  [
+    "Design of Machine Elements - I",
+    "Dynamics of Machinery",
+    "Turbo Machines",
+    "Metrology and Quality Control",
+    "Advanced Manufacturing Processes"
+  ],
+  [
+    "Design of Machine Elements - II",
+    "Refrigeration and Air Conditioning",
+    "Mechatronics",
+    "Finite Element Analysis",
+    "Industrial Engineering & Management"
+  ],
+  [
+    "Computer Integrated Manufacturing",
+    "Energy Engineering",
+    "Mechanical System Design"
+  ],
+  [
+    "Power Plant Engineering",
+    "Industrial Fluid Power"
+  ]
+]
+
+const electronicsSubjects = [
+  [
+    "Engineering Mathematics-I",
+    "Engineering Physics / Engineering Chemistry",
+    "Basic Electrical Engineering",
+    "Basic Electronics Engineering",
+    "Systems in Mechanical Engineering"
+  ],
+  [
+    "Engineering Mathematics-II",
+    "Engineering Physics / Engineering Chemistry",
+    "Basic Civil and Environmental Engineering",
+    "Engineering Graphics",
+    "Programming and Problem Solving"
+  ],
+  [
+    "Engineering Mathematics-III",
+    "Electronic Devices & Circuits",
+    "Network Theory",
+    "Digital Electronics",
+    "Data Structures"
+  ],
+  [
+    "Signal Processing",
+    "Control Systems",
+    "Microcontrollers",
+    "Analog Circuits",
+    "Electromagnetic Field Theory"
+  ],
+  [
+    "Digital Communication",
+    "Microprocessors and Interfacing",
+    "Embedded Systems",
+    "Transmission Lines and Antennas",
+    "Computer Networks"
+  ],
+  [
+    "VLSI Design and Technology",
+    "Wireless Communication",
+    "Power Electronics",
+    "Image Processing",
+    "Instrumentation and Measurement"
+  ],
+  [
+    "Internet of Things",
+    "Mobile Communication",
+    "Optical Fiber Communication",
+    "RF and Microwave Engineering"
+  ],
+  [
+    "Advanced Communication Systems",
+    "Satellite Communication",
+    "Artificial Intelligence and Machine Learning"
+  ]
+]
+
+const aidsSubjects = [
+  [
+    "Engineering Mathematics-I",
+    "Engineering Physics / Engineering Chemistry",
+    "Programming and Problem Solving",
+    "Basic Electrical Engineering / Basic Electronics Engineering",
+    "Engineering Mechanics"
+  ],
+  [
+    "Engineering Mathematics-II",
+    "Engineering Physics / Engineering Chemistry",
+    "Basic Electrical Engineering / Basic Electronics Engineering",
+    "Data Structures and Algorithms",
+    "Engineering Graphics"
+  ],
+  [
+    "Engineering Mathematics-III",
+    "Database Management Systems",
+    "Object Oriented Programming (OOP)",
+    "Computer Networks",
+    "Operating Systems"
+  ],
+  [
+    "Engineering Mathematics-IV",
+    "Data Mining and Warehousing",
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Deep Learning"
+  ],
+  [
+    "Big Data Analytics",
+    "Computer Vision",
+    "Natural Language Processing",
+    "Reinforcement Learning",
+    "Cloud Computing"
+  ],
+  [
+    "Internet of Things (IoT)",
+    "Cyber Security",
+    "Blockchain Technology",
+    "Software Engineering and Agile Methodologies"
+  ],
+  [
+    "High Performance Computing",
+    "Advanced Machine Learning",
+    "Neural Networks and Fuzzy Systems",
+    "Robotic Process Automation"
+  ],
+  [
+    "Ethical Hacking and Penetration Testing",
+    "Bioinformatics",
+    "Autonomous Systems",
+    "Quantum Computing"
+  ]
+]
+
+
+
+
 // Mock data for branches with subjects
 const questionPapers = {
   "Civil Engineering": Array.from({ length: 8 }, (_, i) => ({
     id: i + 1,
     name: `Semester ${i + 1}`,
-    subjects: Array.from({ length: 5 }, (_, j) => ({
+    subjects: civilEngineeringSubjects[i].map((subject, j) => ({
       id: j + 1,
-      name: `Sub ${j + 1}`,
-      url: `https://drive.google.com/file/d/your-link-${i + 1}-${j + 1}`
+      name: subject,
+      url: `https://drive.google.com/file/d/your-link-civil-${i + 1}-${j + 1}`
     }))
   })),
   "Computer Engineering": Array.from({ length: 8 }, (_, i) => ({
@@ -81,30 +310,30 @@ const questionPapers = {
     }))
   })),
   "Mechanical Engineering": Array.from({ length: 8 }, (_, i) => ({
-    id: i + 1,
-    name: `Semester ${i + 1}`,
-    subjects: Array.from({ length: 5 }, (_, j) => ({
+      id: i + 1,
+      name: `Semester ${i + 1}`,
+      subjects: mechanicalEngineeringSubjects[i].map((subject, j) => ({
       id: j + 1,
-      name: `Sub ${j + 1}`,
-      url: `https://drive.google.com/file/d/your-link-${i + 1}-${j + 1}`
+      name: subject,
+      url: `https://drive.google.com/file/d/your-link-mechanical-${i + 1}-${j + 1}`
     }))
   })),
   "Electronics and Telecommunication Engineering": Array.from({ length: 8 }, (_, i) => ({
     id: i + 1,
     name: `Semester ${i + 1}`,
-    subjects: Array.from({ length: 5 }, (_, j) => ({
+    subjects: electronicsSubjects[i].map((subject, j) => ({
       id: j + 1,
-      name: `Sub ${j + 1}`,
-      url: `https://drive.google.com/file/d/your-link-${i + 1}-${j + 1}`
+      name: subject,
+      url: `https://drive.google.com/file/d/your-link-electronics-${i + 1}-${j + 1}`
     }))
   })),
-  "AIDS (Artificial Intelligence and Data Science)": Array.from({ length: 8 }, (_, i) => ({
+  "Artificial Intelligence and Data Science": Array.from({ length: 8 }, (_, i) => ({
     id: i + 1,
     name: `Semester ${i + 1}`,
-    subjects: Array.from({ length: 5 }, (_, j) => ({
+    subjects: aidsSubjects[i].map((subject, j) => ({
       id: j + 1,
-      name: `Sub ${j + 1}`,
-      url: `https://drive.google.com/file/d/your-link-${i + 1}-${j + 1}`
+      name: subject,
+      url: `https://drive.google.com/file/d/your-link-aids-${i + 1}-${j + 1}`
     }))
   }))
 }
