@@ -13,8 +13,8 @@ export default function Header() {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const handleNavClick = (item) => {
-    // Prevent login modal for "Home," "About," and "Feedback"
-    if (item !== "Home" && item !== "About" && item !== "Feedback") {
+    // Prevent login modal for "Home," "About," "Feedback," "Books," "Notes," and "Question Papers"
+    if (!["Home", "About", "Feedback", "Books", "Notes", "Question Papers"].includes(item)) {
       setIsAuthModalOpen(true);
     }
     setIsMenuOpen(false); // Close the mobile menu when a link is clicked
