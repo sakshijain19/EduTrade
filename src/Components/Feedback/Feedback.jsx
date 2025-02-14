@@ -15,7 +15,7 @@ const FeedbackSection = () => {
     <div 
       className="feedback-container"
       style={{
-        backgroundImage: "url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&q=80&w=1080')", // Placeholder image
+        backgroundImage: "url('https://img.freepik.com/free-vector/service-rating-customer-feedback-concept_107791-17032.jpg?semt=ais_hybrid')", // Placeholder image
         backgroundSize: "cover",
         backgroundPosition: "center",
         height: "100vh",
