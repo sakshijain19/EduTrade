@@ -111,7 +111,6 @@
 
 
 
-
 import React, { useState } from 'react'
 import { XIcon, ArrowLeftIcon } from 'lucide-react'
 
@@ -158,7 +157,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 required
               />
             </div>
@@ -171,7 +170,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 required
               />
             </div>
@@ -189,7 +188,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 required
               />
             </div>
@@ -202,7 +201,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 required
               />
             </div>
@@ -215,7 +214,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 required
               />
             </div>
@@ -232,7 +231,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-400 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
               required
             />
           </div>
@@ -262,7 +261,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           {renderForm()}
           <button
             type="submit"
-            className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="w-full bg-blue-400 text-white py-2 px-4 rounded-full hover:bg-blue-600"
           >
             {mode === 'login' ? 'Login' : mode === 'signup' ? 'Sign Up' : 'Reset Password'}
           </button>
@@ -272,13 +271,13 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             <>
               <button
                 onClick={() => setMode('signup')}
-                className="text-sm text-indigo-600 hover:text-indigo-500 block w-full"
+                className="text-sm text-blue-400 hover:text-blue-600 block w-full"
               >
                 Don't have an account? Sign Up
               </button>
               <button
                 onClick={() => setMode('forgotPassword')}
-                className="text-sm text-indigo-600 hover:text-indigo-500 block w-full"
+                className="text-sm text-blue-400 hover:text-blue-600 block w-full"
               >
                 Forgot Password?
               </button>
@@ -287,7 +286,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           {mode === 'signup' && (
             <button
               onClick={() => setMode('login')}
-              className="text-sm text-indigo-600 hover:text-indigo-500"
+              className="text-sm text-blue-400 hover:text-blue-600"
             >
               Already have an account? Login
             </button>
@@ -295,7 +294,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           {mode === 'forgotPassword' && (
             <button
               onClick={() => setMode('login')}
-              className="text-sm text-indigo-600 hover:text-indigo-500"
+              className="text-sm text-blue-400 hover:text-blue-600"
             >
               Remember your password? Login
             </button>
@@ -305,4 +304,3 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     </div>
   )
 }
-
