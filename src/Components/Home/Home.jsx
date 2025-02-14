@@ -288,17 +288,43 @@ const Header = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-400 text-white w-full">
-        <div className="px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <h3 className="text-3xl font-semibold mb-4">Ready to Start?</h3>
-          <p className="text-xl mb-8">
-            Join our community of book lovers today!
-          </p>
-          <button className="bg-white text-gray-600 px-6 py-3 rounded-lg text-lg font-semibold hover:bg-gray-200">
-            Sign Up Now
-          </button>
-        </div>
-      </section>
+            
+      <section className="relative w-full py-20 text-center shadow-lg overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src="https://snjb.org/engineering/uploads/slider/item/LIBRARY_1_776x279_1.jpg"
+          alt="A wide-angle view of SNJB College library with bookshelves and study tables"
+          className="w-full h-full object-cover opacity-50"
+        />
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4">
+        <h2 className="text-4xl md:text-5xl font-extrabold tracking-wide mb-5 text-white animate-fadeIn">
+          Ready to Start?
+        </h2>
+        <p className="text-lg md:text-2xl font-medium mb-4 text-white animate-fadeInSlow">
+          Join our community of book lovers today!
+        </p>
+        <p className="text-md md:text-lg font-light mb-6 text-white animate-fadeInSlow">
+          Start exploring <span className="font-semibold">books, notes, and question papers</span> – your learning hub
+          awaits!
+        </p>
+      </div>
+
+      {/* Fixed Wave Effect - Blending Seamlessly */}
+      <div className="absolute bottom-0 left-0 w-full leading-none">
+      <svg className="absolute bottom-0 left-0 w-full h-20 md:h-24" viewBox="0 0 1440 320">
+        <path
+          fill="white" /* Ensure it blends with the next section */
+          d="M0,160L80,154.7C160,149,320,139,480,154.7C640,171,800,213,960,218.7C1120,224,1280,192,1360,176L1440,160V320H0Z"
+        ></path>
+      </svg>
+      </div>
+    </section>
+
     </main>
   );
 };
