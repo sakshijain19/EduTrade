@@ -15,20 +15,33 @@ import { DollarSign, MapPin, BookOpen } from "lucide-react";
 const Header = () => {
   return (
     <main className="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
-      {/* Logo and tagline */}
-      <div className="text-center mb-12 mt-15">
-        <div className="grid place-items-center sm:mt-1">
-          <img
-            className="sm:w-96 w-48"
-            src="https://i.ibb.co/xSTJwWKz/Logo.png"
-            alt="Logo"
-          />
-        </div>
-        <p className="text-2xl font-semibold text-gray-800">
-          Connecting Students, Empowering Exchanges
-        </p>
-      </div>
-
+          {/* Logo and tagline */}
+      <section className="relative w-full h-screen flex items-center justify-center">
+  {/* Background Image */}
+  <div className="absolute inset-0">
+    <img
+      src="https://static.vecteezy.com/system/resources/thumbnails/022/574/914/small/abstract-blurred-public-library-interior-space-blurry-room-with-bookshelves-by-defocused-effect-use-for-background-or-backdrop-in-abstract-blurred-publicbusiness-or-education-concepts-generative-ai-photo.jpg"
+      alt="A wide-angle view of SNJB College library with bookshelves and study tables"
+      className="w-full h-full object-cover"
+    />
+    <div className="absolute inset-0 bg-black opacity-40"></div>
+  </div>
+ 
+  {/* Centered Content */}
+  <div className="relative text-center z-10">
+    <div className="grid place-items-center">
+      <img
+        className="sm:w-96 w-48"
+        src="https://i.ibb.co/HLV6VhMd/Logo.png"
+        alt="Logo"
+      />
+    </div>
+    <p className="text-2xl font-semibold text-white mt-4">
+      Connecting Students, Empowering Exchanges
+    </p>
+  </div>
+</section>
+ 
       {/* Hero Section */}
       <section className="bg-blue-400 text-white w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
@@ -36,7 +49,7 @@ const Header = () => {
             Your Local Book Marketplace
           </h2>
           <p className="text-xl md:text-2xl mb-8 ">
-            Buy, sell, and rent books in your community
+            Buy, sell books in your community
           </p>
           <div className="max-w-md mx-auto">
             <div className="flex">
