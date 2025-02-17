@@ -2,6 +2,7 @@
 import { React, useState } from 'react'
 import { FiDownload, FiSearch } from 'react-icons/fi'
 
+
 // Updated subjects for Computer Engineering
 const computerEngineeringSubjects = [
   [
@@ -372,6 +373,7 @@ export default function PYQComponent() {
               onChange={(e) => {
                 setSelectedBranch(e.target.value);
                 setSelectedSemester(null);
+                setSearchTerm(""); // Reset search term when branch changes
               }}
               value={selectedBranch || ""}
             >
@@ -408,20 +410,52 @@ export default function PYQComponent() {
           </div>
 
           {selectedSemester && (
-            <ul className="space-y-2">
-              {filteredSubjects.map((sub) => (
-                <li key={sub.id} className="flex justify-between items-center">
-                  <span>{sub.name}</span>
-                  <button
-                    onClick={() => handleDownload(sub)}
-                    className="text-blue-500"
+            <div>
+              <div className="mb-4 flex items-center">
+                <FiSearch className="mr-2" />
+                <input
+                  type="text"
+                  placeholder="Search subjects..."
+                  className="w-full p-2 border rounded-md"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+              <p className="mb-2 text-gray-600">
+                {filteredSubjects.length} subjects found
+              </p>
+              <ul className="space-y-2">
+                {filteredSubjects.map((sub) => (
+                  <li
+                    key={sub.id}
+                    className="flex justify-between items-center p-2 hover:bg-gray-100 transition duration-200"
                   >
-                    Download
-                  </button>
-                </li>
-              ))}
-            </ul>
+                    <span>{sub.name}</span>
+                    <button
+                      onClick={() => handleDownload(sub)}
+                      className="text-blue-500 hover:underline"
+                    >
+                      <FiDownload />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
+
+          {/* Clear Selection Button */}
+          <div className="mt-4">
+            <button
+              onClick={() => {
+                setSelectedBranch(null);
+                setSelectedSemester(null);
+                setSearchTerm("");
+              }}
+              className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"
+            >
+              Clear Selection
+            </button>
+          </div>
         </div>
       </div>
     </div>
